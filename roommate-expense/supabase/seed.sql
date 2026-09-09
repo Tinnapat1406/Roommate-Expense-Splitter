@@ -1,0 +1,1 @@
+-- TODO: Seed a demo household with roommates and sample expenses.
