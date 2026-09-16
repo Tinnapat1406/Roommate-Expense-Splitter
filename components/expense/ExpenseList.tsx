@@ -1,1 +1,4 @@
-// TODO: Expense table/list with filters.
+// TODO: Expense list with filters.
+export function ExpenseList() {
+  return null;
+}

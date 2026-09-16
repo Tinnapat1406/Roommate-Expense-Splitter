@@ -1,1 +1,4 @@
-// TODO: Net balance per roommate.
+// TODO: Net position for one member.
+export function BalanceCard() {
+  return null;
+}

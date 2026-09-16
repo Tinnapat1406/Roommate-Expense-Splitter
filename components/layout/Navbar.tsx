@@ -1,1 +1,4 @@
-// TODO: Header — household switcher and user menu.
+// TODO: Top bar — household switcher, add-expense, user menu.
+export function Navbar() {
+  return null;
+}

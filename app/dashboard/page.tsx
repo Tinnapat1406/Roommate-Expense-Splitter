@@ -1,20 +1,24 @@
-export default function DashboardPage() {
+import { NetBalanceCard } from "@/components/dashboard/NetBalanceCard";
+import { RecentActivity } from "@/components/dashboard/RecentActivity";
+import { SpendingChart } from "@/components/dashboard/SpendingChart";
+import { SummaryCard } from "@/components/dashboard/SummaryCard";
+import { UpcomingBills } from "@/components/dashboard/UpcomingBills";
+
+export default function Dashboard() {
   return (
-    <div className="flex flex-col min-h-full">
-      <main className="mx-auto max-w-6xl p-6 space-y-8">
+    <main className="mx-auto max-w-6xl space-y-8 p-6">
 
-            <section>
-                {/*Balance Section*/}
-            </section>
+      <NetBalanceCard />
 
-            <section>
-                {/*Summary Cards*/}
-            </section>
+      <SummaryCard />
 
-            <section>
-                {/*Columns*/}
-            </section>
-      </main>
-    </div>
+      <div className="grid gap-6 lg:grid-cols-2">
+        <RecentActivity />
+        <UpcomingBills />
+      </div>
+
+      <SpendingChart />
+
+    </main>
   );
 }

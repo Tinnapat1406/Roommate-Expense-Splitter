@@ -1,1 +1,4 @@
-// TODO: Split editor — equal / percentage / exact-amount / shares.
+// TODO: Equal / percentage / exact / shares.
+export function SplitSelector() {
+  return null;
+}
