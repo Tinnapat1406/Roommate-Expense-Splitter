@@ -1,26 +1,82 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/*
+  Colour discipline for this app:
+  - `accent` drives every action (buttons, links, active nav). It is deliberately
+    neither green nor red.
+  - `positive` / `negative` are reserved for balance figures ONLY. If a button is
+    green, the one signal that matters stops reading as a signal.
+*/
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+:root {
+  --bg: #fafaf9;
+  --surface: #ffffff;
+  --border: #e7e5e4;
+  --fg: #1c1917;
+  --muted: #78716c;
+
+  --accent: #4f46e5;
+  --accent-fg: #ffffff;
+  --accent-soft: #eef2ff;
+
+  --positive: #047857;
+  --positive-soft: #d1fae5;
+  --negative: #be123c;
+  --negative-soft: #ffe4e6;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --bg: #0c0a09;
+    --surface: #1c1917;
+    --border: #292524;
+    --fg: #fafaf9;
+    --muted: #a8a29e;
+
+    --accent: #818cf8;
+    --accent-fg: #1e1b4b;
+    --accent-soft: #1e1b4b;
+
+    --positive: #34d399;
+    --positive-soft: #064e3b;
+    --negative: #fb7185;
+    --negative-soft: #4c0519;
   }
 }
 
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-accent-soft: var(--accent-soft);
+
+  --color-positive: var(--positive);
+  --color-positive-soft: var(--positive-soft);
+  --color-negative: var(--negative);
+  --color-negative-soft: var(--negative-soft);
+
+  /* Three sizes carry the page: hero number, stat value, body, meta. */
+  --text-hero: 2.75rem; /* 44px — NetBalanceCard only */
+  --text-hero--line-height: 1.1;
+  --text-stat: 1.5rem; /* 24px — SummaryCard values */
+  --text-stat--line-height: 1.2;
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Every amount in a column needs this or the digits wobble between rows. */
+.tnum {
+  font-variant-numeric: tabular-nums;
 }
