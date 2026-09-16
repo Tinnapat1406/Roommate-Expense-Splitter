@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     "Split rent, utilities, groceries, and random Venmos automatically with recurring payments and balance tracking.",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: LayoutProps<"/dashboard">) {
   return (
     <html
       lang="en"
