@@ -7,7 +7,7 @@ export function cn(
 
 export function formatCurrency(
     cents: number,
-    currency: "USD"
+    currency =  "USD"
 ): string{
     return new Intl.NumberFormat("en-US",{
         style: "currency",
