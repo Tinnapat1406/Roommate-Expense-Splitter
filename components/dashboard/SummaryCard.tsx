@@ -9,8 +9,8 @@ export function SummaryCard ({
 } : {
   label : string,
   value : string,
-  context : string,
-  className : string
+  context?: string,
+  className?: string
 }){
   return (
     <div className={cn(
