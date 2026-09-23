@@ -1,8 +1,6 @@
 // TODO: What's about to hit, from recurring rules.
 import { Badge } from "@/components/ui/Badge";
 import { Card, CardFooter, CardHeader } from "@/components/ui/Card";
-import { Badge } from "@/components/ui/Badge";
-import { Card, CardFooter, CardHeader } from "@/components/ui/Card";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { CURRENT_USER, MEMBERS, RECURRING_RULES } from "@/lib/mock-data";
 import { dateChip, formatCurrency } from "@/lib/utils";

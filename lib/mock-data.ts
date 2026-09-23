@@ -138,6 +138,16 @@ export const RECURRING_RULES: RecurringRule[] = [
   },
 ];
 
+/** Six months of household totals for the chart. Newest last. */
+export const MONTHLY_TOTALS: { month: string; amountCents: number }[] = [
+  { month: "Apr", amountCents: 298400 },
+  { month: "May", amountCents: 341250 },
+  { month: "Jun", amountCents: 312900 },
+  { month: "Jul", amountCents: 355600 },
+  { month: "Aug", amountCents: 289750 },
+  { month: "Sep", amountCents: 330010 },
+];
+
 /** Positive = the household owes them. Always sums to zero. */
 export const BALANCES: Balance[] = [
   { memberId: "m1", netCents: 64350 },
