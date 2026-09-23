@@ -1,7 +1,7 @@
 // Sample data so the dashboard renders before Supabase is wired up.
 // Delete this file once real queries land in lib/supabase.
 
-import type { Balance, Expense, Member } from "@/types";
+import type { Balance, Expense, Member, RecurringRule } from "@/types";
 
 export const MEMBERS: Member[] = [
   { id: "m1", name: "Alex Rivera", email: "alex@example.com", isCurrentUser: true },
@@ -88,6 +88,53 @@ export const EXPENSES: Expense[] = [
     date: "2026-09-08",
     splitType: "equal",
     splits: equalSplit(5600),
+  },
+];
+
+export const RECURRING_RULES: RecurringRule[] = [
+  {
+    id: "r1",
+    description: "Rent",
+    amountCents: 280000,
+    category: "rent",
+    interval: "monthly",
+    nextDueDate: "2026-10-01",
+    paidBy: "m1",
+    splitType: "equal",
+    active: true,
+  },
+  {
+    id: "r3",
+    description: "Cleaning service",
+    amountCents: 12000,
+    category: "household",
+    interval: "biweekly",
+    nextDueDate: "2026-09-24",
+    paidBy: "m4",
+    splitType: "equal",
+    active: true,
+  },
+  {
+    id: "r2",
+    description: "Internet — Sonic",
+    amountCents: 8000,
+    category: "internet",
+    interval: "monthly",
+    nextDueDate: "2026-10-05",
+    paidBy: "m1",
+    splitType: "equal",
+    active: true,
+  },
+  {
+    id: "r4",
+    description: "Renters insurance",
+    amountCents: 4800,
+    category: "other",
+    interval: "monthly",
+    nextDueDate: "2026-10-12",
+    paidBy: "m2",
+    splitType: "equal",
+    active: false,
   },
 ];
 
