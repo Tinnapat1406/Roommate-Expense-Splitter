@@ -1,7 +1,13 @@
 // Sample data so the dashboard renders before Supabase is wired up.
 // Delete this file once real queries land in lib/supabase.
 
-import type { Balance, Expense, Member, RecurringRule } from "@/types";
+import type {
+  Balance,
+  Expense,
+  Household,
+  Member,
+  RecurringRule,
+} from "@/types";
 
 export const MEMBERS: Member[] = [
   { id: "m1", name: "Alex Rivera", email: "alex@example.com", isCurrentUser: true },
@@ -11,6 +17,13 @@ export const MEMBERS: Member[] = [
 ];
 
 export const CURRENT_USER = MEMBERS[0];
+
+export const HOUSEHOLD: Household = {
+  id: "h1",
+  name: "Apt 4B — Valencia St",
+  currency: "USD",
+  members: MEMBERS,
+};
 
 export function memberById(id: string): Member {
   return MEMBERS.find((m) => m.id === id) ?? MEMBERS[0];
