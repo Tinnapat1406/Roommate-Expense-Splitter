@@ -1,4 +1,2 @@
 // TODO: Mark as paid, or charge via Stripe.
-export function SettleButton() {
-  return null;
-}
+import { cn } from "@/lib/utils";
