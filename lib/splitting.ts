@@ -1,5 +1,4 @@
 // TODO: Split algorithms — equal, percentage, exact, shares. Must sum to the total with no rounding drift.
-import { SummaryCard } from "@/components/dashboard/SummaryCard";
 import type { Split,SplitType } from "@/types";
 
 function distribute(
@@ -19,6 +18,9 @@ function distribute(
         memberId: w.memberId,
         amountCents: Math.floor(exact[i]),
     }));
+
+    // Never more leftover cents than entries, since each floor loses under 1.
+    let leftover = amountCents - splits.reduce((sum, s) => sum + s.amountCents, 0);
 
     const byRemainder = exact
         .map((value, i) => ({ i, frac: value - Math.floor(value) }))
