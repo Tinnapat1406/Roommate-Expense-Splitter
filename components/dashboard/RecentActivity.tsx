@@ -3,18 +3,9 @@ import Link from "next/link";
 
 import { Card, CardHeader } from "@/components/ui/Card";
 import { EmptyState } from "@/components/ui/EmptyState";
+import { personalImpact } from "@/lib/balances";
 import { CURRENT_USER, EXPENSES, memberById } from "@/lib/mock-data";
 import { displayName, formatCurrency, formatDate } from "@/lib/utils";
-import type { Expense, PersonalImpact } from "@/types";
-
-function impactFor(expense: Expense) : PersonalImpact {
-  const myShare = 
-  expense.splits.find((s) => s.memberId === CURRENT_USER.id)?.amountCents ?? 0;
-
-  return expense.paidBy === CURRENT_USER.id
-  ? {kind: "lent",amountCents: expense.amountCents - myShare }
-  : {kind: "owe", amountCents: myShare};
-}
 
 export function RecentActivity() {
   const recent = [...EXPENSES]
@@ -41,7 +32,7 @@ export function RecentActivity() {
         <ul className="divide-y divide-border">
           {recent.map((expense) => {
             const payer = memberById(expense.paidBy);
-            const impact = impactFor(expense);
+            const impact = personalImpact(expense, CURRENT_USER.id);
 
             return (
               <li

@@ -3,14 +3,20 @@ import { Badge } from "@/components/ui/Badge";
 import { Card, CardFooter, CardHeader } from "@/components/ui/Card";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { CURRENT_USER, MEMBERS, RECURRING_RULES } from "@/lib/mock-data";
+import { splitEqual } from "@/lib/splitting";
 import { dateChip, formatCurrency } from "@/lib/utils";
 import type { RecurringRule } from "@/types";
 
 const DAY_MS = 86_400_000;
 
-/** Equal split for now — swap for lib/splitting.ts when it exists. */
+/** TODO: honour rule.splitType once rules can carry percentages or shares. */
 function yourShareOf(rule: RecurringRule) {
-  return Math.floor(rule.amountCents / MEMBERS.length);
+  return (
+    splitEqual(
+      rule.amountCents,
+      MEMBERS.map((m) => m.id),
+    ).find((s) => s.memberId === CURRENT_USER.id)?.amountCents ?? 0
+  );
 }
 
 function daysAway(date: string) {
