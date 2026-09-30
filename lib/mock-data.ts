@@ -1,6 +1,7 @@
 // Sample data so the dashboard renders before Supabase is wired up.
 // Delete this file once real queries land in lib/supabase.
 
+import { computeBalances } from "@/lib/balances";
 import type {
   Balance,
   Expense,
@@ -162,9 +163,7 @@ export const MONTHLY_TOTALS: { month: string; amountCents: number }[] = [
 ];
 
 /** Positive = the household owes them. Always sums to zero. */
-export const BALANCES: Balance[] = [
-  { memberId: "m1", netCents: 64350 },
-  { memberId: "m2", netCents: -12100 },
-  { memberId: "m3", netCents: -21250 },
-  { memberId: "m4", netCents: -31000 },
-];
+export const BALANCES: Balance[] = computeBalances(
+  MEMBERS.map((m) => m.id),
+  EXPENSES,
+);
