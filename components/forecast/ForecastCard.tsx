@@ -1,25 +1,27 @@
 // TODO: Projected cost for the period ahead.
 import { Card } from "@/components/ui/Card";
-import { MEMBERS } from "@/lib/mock-data";
+import { CURRENT_USER, MEMBERS } from "@/lib/mock-data";
 import { splitEqual } from "@/lib/splitting";
 import { formatCurrency } from "@/lib/utils";
 import type { ForecastEntry } from "@/lib/recurring";
 
 
-export function ForecastCard(
+export function ForecastCard({
   entries,
   days,
-): { entries: ForecastEntry[];
+}: {
+  entries: ForecastEntry[];
   days: number;
-}){
-    const total = entries.reduce((sum, e) => sum + e.rule.amountCents, 0);
+}) {
+  const total = entries.reduce((sum, e) => sum + e.rule.amountCents, 0);
 
   const yourShare = entries.reduce((sum, e) => {
     const splits = splitEqual(
       e.rule.amountCents,
       MEMBERS.map((m) => m.id),
     );
-    return sum + (splits[0]?.amountCents ?? 0);
+    const mine = splits.find((s) => s.memberId === CURRENT_USER.id);
+    return sum + (mine?.amountCents ?? 0);
   }, 0);
 
   return(
