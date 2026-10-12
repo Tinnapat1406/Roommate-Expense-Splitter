@@ -1,30 +1,19 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import Link from "next/link";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-export const metadata: Metadata = {
-  title: "Roommate Expense Splitter",
-  description:
-    "Split rent, utilities, groceries, and random Venmos automatically with recurring payments and balance tracking.",
-};
-
-export default function RootLayout({ children }: LayoutProps<"/dashboard">) {
+export default function AuthLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
-    </html>
+    <div className="flex flex-1 flex-col items-center justify-center px-5 py-12">
+      <Link href="/" className="mb-8 text-lg font-semibold tracking-tight">
+        Splitmate
+      </Link>
+
+      <div className="w-full max-w-sm rounded-xl border border-border bg-surface p-6 shadow-sm">
+        {children}
+      </div>
+    </div>
   );
 }
