@@ -77,7 +77,7 @@ export function SplitSelector({
   value: SplitState;
   onChange: (value: SplitState) => void;
 }) {
-  const split = computeSplit(amountCents, members, value);
+  const splits = computeSplit(amountCents, members, value);
   const remainder = splitRemainder(amountCents, splits);
 
   // Equal and shares always reconcile; only user-entered numbers can drift.
