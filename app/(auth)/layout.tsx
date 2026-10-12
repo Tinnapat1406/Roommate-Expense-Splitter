@@ -1,8 +1,20 @@
-// TODO: Auth layout — centered card shell for login/signup.
+// Auth layout — centered card shell for login/signup.
+import Link from "next/link";
+
 export default function AuthLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return children;
+  return (
+    <div className="flex flex-1 flex-col items-center justify-center px-5 py-12">
+      <Link href="/" className="mb-8 text-lg font-semibold tracking-tight">
+        Splitmate
+      </Link>
+
+      <div className="w-full max-w-sm rounded-xl border border-border bg-surface p-6 shadow-sm">
+        {children}
+      </div>
+    </div>
+  );
 }
