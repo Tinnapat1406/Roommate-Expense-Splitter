@@ -3,11 +3,13 @@ import Link from "next/link";
 
 import { ExpenseList } from "@/components/expense/ExpenseList";
 import { PageHeader } from "@/components/layout/PageHeader";
-import { Card } from "@/components/ui/Card";
 import { CATEGORIES } from "@/lib/constants";
 import { EXPENSES } from "@/lib/mock-data";
 import { cn, formatCurrency } from "@/lib/utils";
 import type { ExpenseCategory } from "@/types";
+import { ExpenseForm } from "@/components/expense/ExpenseForm";
+import { Card, CardHeader } from "@/components/ui/Card";
+
 
 export default async function ExpensesPage(
   props: PageProps<"/dashboard/expenses">,
@@ -60,9 +62,19 @@ export default async function ExpensesPage(
         ))}
       </div>
 
-      <Card>
-        <ExpenseList expenses={expenses} />
-      </Card>
+      <div className="grid gap-6 lg:grid-cols-5">
+        <Card className="lg:col-span-3">
+          <ExpenseList expenses={expenses} />
+        </Card>
+
+        <Card className="h-fit lg:col-span-2">
+          <CardHeader title="Add an expense" />
+          <div className="px-5 py-4">
+            <ExpenseForm />
+          </div>
+        </Card>
+      </div>
+
     </main>
   );
 }
