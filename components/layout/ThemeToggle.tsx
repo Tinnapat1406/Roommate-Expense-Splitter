@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -12,33 +12,55 @@ const OPTIONS: { value: Theme; label: string }[] = [
   { value: "system", label: "Auto" },
 ];
 
-export function ThemeToggle() {
-  const [theme, setTheme] = useState<Theme>("system");
+// The theme lives in localStorage and on <html>, not in React state. Everything
+// below reads or writes that external store from module scope.
 
-  // localStorage is unavailable on the server, so read it after mount.
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem("theme");
-      if (saved === "light" || saved === "dark") setTheme(saved);
-    } catch {
-      // Private mode or blocked storage — stay on system.
-    }
-  }, []);
+let listeners: Array<() => void> = [];
 
-  function apply(next: Theme) {
-    setTheme(next);
-    try {
-      if (next === "system") {
-        localStorage.removeItem("theme");
-        delete document.documentElement.dataset.theme;
-      } else {
-        localStorage.setItem("theme", next);
-        document.documentElement.dataset.theme = next;
-      }
-    } catch {
-      // Ignore — the in-memory choice still applies for this page.
-    }
+function subscribe(onChange: () => void) {
+  listeners.push(onChange);
+  // Keeps other tabs in step.
+  window.addEventListener("storage", onChange);
+  return () => {
+    listeners = listeners.filter((listener) => listener !== onChange);
+    window.removeEventListener("storage", onChange);
+  };
+}
+
+function getSnapshot(): Theme {
+  try {
+    const saved = localStorage.getItem("theme");
+    return saved === "light" || saved === "dark" ? saved : "system";
+  } catch {
+    // Private mode or blocked storage.
+    return "system";
   }
+}
+
+function getServerSnapshot(): Theme {
+  // No storage on the server; the inline script in <head> fixes this up
+  // before paint, and this component re-renders after hydration.
+  return "system";
+}
+
+function applyTheme(next: Theme) {
+  try {
+    const root = document.documentElement;
+    if (next === "system") {
+      localStorage.removeItem("theme");
+      delete root.dataset.theme;
+    } else {
+      localStorage.setItem("theme", next);
+      root.dataset.theme = next;
+    }
+  } catch {
+    // Storage unavailable — nothing to persist.
+  }
+  for (const listener of listeners) listener();
+}
+
+export function ThemeToggle() {
+  const theme = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   return (
     <div
@@ -52,7 +74,7 @@ export function ThemeToggle() {
           type="button"
           role="radio"
           aria-checked={theme === option.value}
-          onClick={() => apply(option.value)}
+          onClick={() => applyTheme(option.value)}
           className={cn(
             "rounded-md px-2 py-1 text-xs font-medium transition",
             theme === option.value
