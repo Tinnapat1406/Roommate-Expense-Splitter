@@ -1,4 +1,6 @@
 // TODO: Initials avatar with a stable per-person color
+import Image from "next/image";
+
 import { cn, initials } from "@/lib/utils";
 import type { Member } from "@/types";
 
@@ -18,6 +20,9 @@ function colorFor(id: string) {
 
 const SIZES = { sm: "size-6 text-[10px]", md: "size-8 text-xs" };
 
+/** next/image needs intrinsic dimensions; keep these in step with SIZES. */
+const PIXELS = { sm: 24, md: 32 };
+
 export function MemberAvatar({
   member,
   size = "md",
@@ -29,9 +34,11 @@ export function MemberAvatar({
 }) {
   if (member.avatarUrl) {
     return (
-      <img
+      <Image
         src={member.avatarUrl}
         alt={member.name}
+        width={PIXELS[size]}
+        height={PIXELS[size]}
         className={cn("rounded-full object-cover", SIZES[size], className)}
       />
     );
