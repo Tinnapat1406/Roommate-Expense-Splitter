@@ -4,6 +4,8 @@ import Link from "next/link";
 import { MemberAvatar } from "@/components/member/MemberAvatar";
 import { NAV_ITEMS } from "@/lib/constants";
 import { CURRENT_USER, HOUSEHOLD } from "@/lib/mock-data";
+import { ThemeToggle } from "@/components/layout/ThemeToggle";
+
 
 export function Navbar() {
   return (
@@ -35,6 +37,15 @@ export function Navbar() {
           </Link>
         ))}
       </nav>
+
+        <div className="ml-auto flex items-center gap-3">
+          <ThemeToggle />
+          <Link href="/dashboard/expenses" className="...">
+            Add expense
+          </Link>
+          <MemberAvatar member={CURRENT_USER} />
+        </div>
+
     </header>
   );
 }
