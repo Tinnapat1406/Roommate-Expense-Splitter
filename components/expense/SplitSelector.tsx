@@ -19,11 +19,12 @@ export interface SplitState {
   values: Record<string, number>;
 }
 
-export function initialSplitState(members: Member[]): SplitState {
+export function initialSplitState(): SplitState {
   return { type: "equal", values: {} };
 }
 
-function computeSplit(
+/** Exported so the form's submit guard uses the same numbers the user sees. */
+export function computeSplit(
   amountCents: number,
   members: Member[],
   state: SplitState

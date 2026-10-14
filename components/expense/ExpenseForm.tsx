@@ -5,6 +5,7 @@ import { useState } from "react";
 
 import {
   SplitSelector,
+  computeSplit,
   initialSplitState,
   type SplitState,
 } from "@/components/expense/SplitSelector";
@@ -22,12 +23,17 @@ function toCents(input: string): number {
 
 export function ExpenseForm() {
   const [amount, setAmount] = useState("");
-  const [split, setSplit] = useState<SplitState>(initialSplitState(MEMBERS));
+  const [split, setSplit] = useState<SplitState>(initialSplitState());
 
   const amountCents = toCents(amount);
 
-  // Mirrors SplitSelector's own check so the submit button agrees with the banner.
-  const blocked = amountCents <= 0;
+  // Same calculation the selector renders, so the button agrees with the banner.
+  const remainder = splitRemainder(
+    amountCents,
+    computeSplit(amountCents, MEMBERS, split),
+  );
+
+  const blocked = amountCents <= 0 || remainder !== 0;
 
   return (
     <form

@@ -1,7 +1,6 @@
 // TODO: Upcoming charges laid out on a timeline.
 import { CategoryBadge } from "@/components/expense/CategoryBadge";
 import { MemberAvatar } from "@/components/member/MemberAvatar";
-import { Badge } from "@/components/ui/Badge";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { memberById } from "@/lib/mock-data";
 import { daysAway, type ForecastEntry } from "@/lib/recurring";
