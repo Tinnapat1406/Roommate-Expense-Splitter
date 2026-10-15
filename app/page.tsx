@@ -1,4 +1,9 @@
 // TODO: Landing page — pitch, screenshot, sign-up CTA.
+// git clone https://github.com/Tinnapat1406/Roommate-Expense-Splitter.git
+// cd Roommate-Expense-Splitter
+// npm install
+// cp .env.example .env.local
+// npm run dev
 import Link from "next/link";
 
 import { MemberAvatar } from "@/components/member/MemberAvatar";
